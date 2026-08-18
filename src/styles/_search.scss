@@ -1,0 +1,167 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.search-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+
+  &__hero {
+    @include card-base;
+    background: radial-gradient(circle at 50% 0%, rgba($primary, 0.18) 0%, rgba($bg-card, 1) 70%);
+    border: 1px solid rgba($primary, 0.25);
+    padding: 2.5rem 2rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+
+    @include mobile {
+      padding: 1.75rem 1rem;
+    }
+
+    .hero-heading {
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: $text-main;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.35rem;
+
+        span {
+          background: linear-gradient(135deg, #a5b4fc 0%, $accent 100%);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+        }
+      }
+
+      p {
+        color: $text-secondary;
+        font-size: 0.9375rem;
+      }
+    }
+
+    .hero-search-box {
+      width: 100%;
+      max-width: 680px;
+      position: relative;
+
+      input {
+        width: 100%;
+        height: 52px;
+        background: $bg-input;
+        border: 1px solid $border;
+        border-radius: $radius-md;
+        padding: 0 3.25rem 0 3.25rem;
+        color: $text-main;
+        font-size: 1rem;
+        box-shadow: $shadow-md;
+        transition: all $transition-fast;
+
+        &:focus {
+          outline: none;
+          border-color: $primary;
+          box-shadow: 0 0 0 4px $primary-light, $shadow-md;
+        }
+
+        &::placeholder {
+          color: $text-muted;
+        }
+      }
+
+      .search-icon-hero {
+        position: absolute;
+        left: 1.125rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: $text-muted;
+        pointer-events: none;
+      }
+
+      .clear-btn-hero {
+        position: absolute;
+        right: 1.125rem;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: $text-muted;
+        cursor: pointer;
+        padding: 4px;
+        display: flex;
+
+        &:hover {
+          color: $text-main;
+        }
+      }
+    }
+
+    .hero-suggestions {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+
+      span {
+        font-size: 0.75rem;
+        color: $text-muted;
+      }
+
+      button {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid $border;
+        color: $text-secondary;
+        font-size: 0.75rem;
+        padding: 0.2rem 0.6rem;
+        border-radius: $radius-pill;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+          background: $primary-light;
+          color: #a5b4fc;
+          border-color: rgba($primary, 0.4);
+        }
+      }
+    }
+  }
+
+  &__controls {
+    @include card-base;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  &__results-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: -0.5rem;
+
+    .results-count {
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: $text-main;
+
+      span {
+        color: $primary;
+      }
+    }
+
+    .relevance-hint {
+      font-size: 0.75rem;
+      color: $text-muted;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+  }
+}

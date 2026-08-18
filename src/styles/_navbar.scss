@@ -1,0 +1,32 @@
+@import 'variables';
+
+.navbar {
+  background: $bg-card;
+  border-bottom: 1px solid $border;
+  padding: 1rem 0;
+
+  &__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__brand {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $text;
+    text-decoration: none;
+
+    span {
+      color: $primary;
+    }
+  }
+
+  &__user {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.875rem;
+    color: $text-muted;
+  }
+}

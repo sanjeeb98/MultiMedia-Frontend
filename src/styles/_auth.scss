@@ -1,0 +1,108 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 1.5rem;
+  background: radial-gradient(circle at 50% 20%, rgba($primary, 0.12) 0%, $bg-main 70%);
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, rgba($secondary, 0.15) 0%, transparent 70%);
+    top: 10%;
+    right: 15%;
+    pointer-events: none;
+  }
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 440px;
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  padding: 2.5rem 2rem;
+  position: relative;
+  z-index: 1;
+
+  @include mobile {
+    padding: 1.75rem 1.25rem;
+  }
+
+  &__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+    text-decoration: none;
+    color: $text-main;
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: $radius-sm;
+      background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+      @include flex-center;
+      color: #fff;
+      font-size: 1.25rem;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(99, 102, 241, 0.4);
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 700;
+
+      span {
+        color: $primary;
+      }
+    }
+  }
+
+  &__header {
+    text-align: center;
+    margin-bottom: 1.75rem;
+
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-main;
+      margin-bottom: 0.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__footer {
+    margin-top: 1.5rem;
+    text-align: center;
+    font-size: 0.875rem;
+    color: $text-secondary;
+    padding-top: 1.25rem;
+    border-top: 1px solid $border;
+
+    a {
+      color: #818cf8;
+      font-weight: 600;
+      text-decoration: none;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+}

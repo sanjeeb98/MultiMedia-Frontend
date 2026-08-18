@@ -1,0 +1,108 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.profile-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  &__header {
+    @include card-base;
+    background: linear-gradient(135deg, rgba($primary, 0.12) 0%, rgba($secondary, 0.06) 100%), $bg-card;
+    border: 1px solid rgba($primary, 0.25);
+    padding: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+
+    @include mobile {
+      flex-direction: column;
+      text-align: center;
+      padding: 1.5rem;
+    }
+
+    .profile-avatar-large {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, $primary 0%, $secondary 100%);
+      @include flex-center;
+      color: #fff;
+      font-size: 2rem;
+      font-weight: 700;
+      box-shadow: 0 4px 20px rgba(99, 102, 241, 0.4);
+      flex-shrink: 0;
+    }
+
+    .profile-info {
+      flex: 1;
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-main;
+        margin-bottom: 0.25rem;
+      }
+
+      .profile-email {
+        color: $text-secondary;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .profile-meta-badges {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+
+        @include mobile {
+          justify-content: center;
+        }
+      }
+    }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    @include tablet {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    @include card-base;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid $border;
+
+      .card-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: $radius-sm;
+        background: $bg-input;
+        border: 1px solid $border;
+        @include flex-center;
+        color: $primary;
+      }
+
+      h3 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: $text-main;
+      }
+    }
+  }
+}

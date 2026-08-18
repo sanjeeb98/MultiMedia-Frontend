@@ -1,0 +1,415 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.files-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .header-info {
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-main;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        color: $text-secondary;
+        font-size: 0.875rem;
+      }
+    }
+  }
+
+  &__toolbar {
+    @include card-base;
+    padding: 1rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: stretch;
+    }
+  }
+
+  &__search {
+    position: relative;
+    flex: 1;
+    min-width: 220px;
+
+    input {
+      width: 100%;
+      height: 38px;
+      background: $bg-input;
+      border: 1px solid $border;
+      border-radius: $radius-sm;
+      padding: 0 1rem 0 2.25rem;
+      color: $text-main;
+      font-size: 0.875rem;
+
+      &:focus {
+        outline: none;
+        border-color: $primary;
+        box-shadow: 0 0 0 2px $primary-light;
+      }
+
+      &::placeholder {
+        color: $text-muted;
+      }
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.75rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: $text-muted;
+      pointer-events: none;
+    }
+  }
+
+  &__filters {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+  }
+
+  &__filter-pill {
+    background: transparent;
+    border: 1px solid $border;
+    color: $text-secondary;
+    padding: 0.35rem 0.75rem;
+    border-radius: $radius-pill;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all $transition-fast;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.04);
+      color: $text-main;
+      border-color: $border-light;
+    }
+
+    &--active {
+      background: $primary;
+      color: #fff;
+      border-color: $primary;
+
+      &:hover {
+        background: $primary-hover;
+        color: #fff;
+        border-color: $primary-hover;
+      }
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+  }
+
+  &__sort-select {
+    height: 38px;
+    background: $bg-input;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    color: $text-main;
+    font-size: 0.8125rem;
+    padding: 0 0.875rem;
+    cursor: pointer;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+    }
+  }
+
+  &__view-toggle {
+    display: flex;
+    background: $bg-input;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    padding: 2px;
+
+    button {
+      background: transparent;
+      border: none;
+      color: $text-muted;
+      padding: 0.4rem 0.6rem;
+      border-radius: 4px;
+      cursor: pointer;
+      @include flex-center;
+      transition: all $transition-fast;
+
+      &:hover {
+        color: $text-main;
+      }
+
+      &.active {
+        background: $bg-card;
+        color: $primary;
+        box-shadow: $shadow-sm;
+      }
+    }
+  }
+}
+
+// ----------------------------------------------------
+// FILE CARD - GRID VIEW
+// ----------------------------------------------------
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.file-card-grid {
+  @include card-base;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  position: relative;
+  group: file-card;
+
+  &:hover {
+    border-color: $primary;
+    transform: translateY(-3px);
+    box-shadow: $shadow-md;
+
+    .file-card-grid__overlay {
+      opacity: 1;
+    }
+  }
+
+  &__thumb {
+    height: 150px;
+    background: #000;
+    @include flex-center;
+    position: relative;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform $transition-normal;
+    }
+
+    &:hover img {
+      transform: scale(1.04);
+    }
+
+    .file-type-icon {
+      font-size: 2.75rem;
+      opacity: 0.6;
+    }
+  }
+
+  &__badge-pos {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 2;
+  }
+
+  &__overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(2px);
+    @include flex-center;
+    gap: 0.5rem;
+    opacity: 0;
+    transition: opacity $transition-fast;
+    z-index: 3;
+  }
+
+  &__body {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    flex: 1;
+  }
+
+  &__name {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: $text-main;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: $text-secondary;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem;
+    margin-top: auto;
+
+    .tag-chip {
+      background: $bg-elevated;
+      color: $text-secondary;
+      padding: 0.125rem 0.45rem;
+      border-radius: $radius-pill;
+      font-size: 0.6875rem;
+      border: 1px solid rgba($border, 0.5);
+    }
+  }
+
+  &__score-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.35rem;
+    border-top: 1px solid rgba($border, 0.5);
+    font-size: 0.6875rem;
+    color: $text-muted;
+  }
+}
+
+// ----------------------------------------------------
+// FILE CARD - LIST / TABLE VIEW
+// ----------------------------------------------------
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.file-card-list {
+  @include card-base;
+  padding: 0.75rem 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $border-light;
+    background: $bg-card-hover;
+  }
+
+  &__thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-sm;
+    background: #000;
+    @include flex-center;
+    overflow: hidden;
+    flex-shrink: 0;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .file-type-icon {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__main {
+    flex: 2;
+    min-width: 0;
+
+    .file-name {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: $text-main;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .file-tags {
+      display: flex;
+      gap: 0.25rem;
+      margin-top: 0.2rem;
+
+      .tag-chip {
+        font-size: 0.6875rem;
+        color: $text-muted;
+      }
+    }
+  }
+
+  &__type {
+    flex: 1;
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__size {
+    width: 90px;
+    font-size: 0.8125rem;
+    color: $text-secondary;
+    text-align: right;
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__views {
+    width: 80px;
+    font-size: 0.8125rem;
+    color: $text-secondary;
+    text-align: right;
+    @include mobile {
+      display: none;
+    }
+  }
+
+  &__date {
+    width: 110px;
+    font-size: 0.8125rem;
+    color: $text-muted;
+    text-align: right;
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__score {
+    width: 90px;
+    text-align: right;
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    flex-shrink: 0;
+  }
+}

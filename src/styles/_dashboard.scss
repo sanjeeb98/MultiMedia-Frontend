@@ -1,0 +1,157 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.dashboard-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+
+  &__welcome {
+    @include card-base;
+    background: linear-gradient(135deg, rgba($primary, 0.15) 0%, rgba($secondary, 0.08) 100%), $bg-card;
+    border: 1px solid rgba($primary, 0.3);
+    padding: 1.75rem 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+
+    @include tablet {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1.25rem;
+      padding: 1.5rem;
+    }
+
+    .welcome-content {
+      z-index: 1;
+
+      h1 {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: $text-main;
+        margin-bottom: 0.25rem;
+        letter-spacing: -0.02em;
+
+        span {
+          color: #818cf8;
+        }
+      }
+
+      p {
+        color: $text-secondary;
+        font-size: 0.875rem;
+      }
+    }
+
+    .welcome-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+  }
+
+  &__stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+    gap: 1rem;
+  }
+
+  &__quick-actions {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+
+  &__quick-card {
+    @include card-base;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      border-color: $primary;
+      transform: translateY(-2px);
+      box-shadow: $shadow-md;
+      text-decoration: none;
+
+      .quick-card-arrow {
+        transform: translateX(4px);
+        color: $primary;
+      }
+    }
+
+    .quick-card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: $radius-md;
+      @include flex-center;
+      flex-shrink: 0;
+
+      &--upload {
+        background: $primary-light;
+        color: $primary;
+      }
+
+      &--search {
+        background: rgba($accent, 0.15);
+        color: $accent;
+      }
+
+      &--files {
+        background: rgba($secondary, 0.15);
+        color: $secondary;
+      }
+    }
+
+    .quick-card-info {
+      flex: 1;
+
+      h4 {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: $text-main;
+        margin-bottom: 0.15rem;
+      }
+
+      p {
+        font-size: 0.75rem;
+        color: $text-secondary;
+      }
+    }
+
+    .quick-card-arrow {
+      color: $text-muted;
+      transition: transform $transition-fast, color $transition-fast;
+    }
+  }
+
+  &__section {
+    @include card-base;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    &-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      h3 {
+        font-size: 1.0625rem;
+        font-weight: 700;
+        color: $text-main;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+    }
+  }
+}

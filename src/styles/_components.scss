@@ -1,0 +1,775 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+// ----------------------------------------------------
+// BUTTONS
+// ----------------------------------------------------
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid transparent;
+  border-radius: $radius-sm;
+  font-family: inherit;
+  font-size: 0.875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  cursor: pointer;
+  transition: all $transition-fast;
+  user-select: none;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  &--primary {
+    background: $primary;
+    color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+
+    &:hover:not(:disabled) {
+      background: $primary-hover;
+      box-shadow: $shadow-glow;
+    }
+  }
+
+  &--secondary {
+    background: $bg-elevated;
+    color: $text-main;
+    border-color: $border;
+
+    &:hover:not(:disabled) {
+      background: $border;
+      border-color: $border-light;
+    }
+  }
+
+  &--outline {
+    background: transparent;
+    color: $text-secondary;
+    border-color: $border;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.04);
+      color: $text-main;
+      border-color: $border-light;
+    }
+  }
+
+  &--ghost {
+    background: transparent;
+    color: $text-secondary;
+
+    &:hover:not(:disabled) {
+      background: rgba(255, 255, 255, 0.06);
+      color: $text-main;
+    }
+  }
+
+  &--danger {
+    background: $danger;
+    color: #fff;
+
+    &:hover:not(:disabled) {
+      background: $danger-hover;
+    }
+  }
+
+  &--danger-ghost {
+    background: transparent;
+    color: $danger;
+    border-color: rgba($danger, 0.3);
+
+    &:hover:not(:disabled) {
+      background: $danger-bg;
+      border-color: $danger;
+    }
+  }
+
+  &--sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.75rem;
+    border-radius: $radius-sm;
+  }
+
+  &--md {
+    padding: 0.55rem 1.15rem;
+    font-size: 0.875rem;
+  }
+
+  &--lg {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: $radius-md;
+  }
+
+  &--icon {
+    padding: 0.55rem;
+    border-radius: $radius-sm;
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+// ----------------------------------------------------
+// FORM CONTROLS
+// ----------------------------------------------------
+.form-group {
+  margin-bottom: 1.125rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+
+  label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $text-secondary;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  input,
+  select,
+  textarea {
+    width: 100%;
+    padding: 0.625rem 0.875rem;
+    background: $bg-input;
+    border: 1px solid $border;
+    border-radius: $radius-sm;
+    color: $text-main;
+    font-family: inherit;
+    font-size: 0.875rem;
+    transition: all $transition-fast;
+
+    &:focus {
+      outline: none;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px $primary-light;
+    }
+
+    &::placeholder {
+      color: $text-muted;
+    }
+
+    &.input--error {
+      border-color: $danger;
+      &:focus {
+        box-shadow: 0 0 0 3px $danger-bg;
+      }
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 80px;
+  }
+
+  .form-error {
+    font-size: 0.75rem;
+    color: $danger;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .form-hint {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+}
+
+.password-input-wrapper {
+  position: relative;
+  width: 100%;
+
+  input {
+    padding-right: 2.5rem !important;
+  }
+
+  .password-toggle-btn {
+    position: absolute;
+    right: 0.75rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &:hover {
+      color: $text-main;
+    }
+  }
+}
+
+// ----------------------------------------------------
+// BADGES
+// ----------------------------------------------------
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: $radius-pill;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+
+  &--default {
+    background: $bg-elevated;
+    color: $text-secondary;
+    border: 1px solid $border;
+  }
+
+  &--image {
+    background: $type-image-bg;
+    color: $type-image;
+    border: 1px solid rgba($type-image, 0.25);
+  }
+
+  &--video {
+    background: $type-video-bg;
+    color: $type-video;
+    border: 1px solid rgba($type-video, 0.25);
+  }
+
+  &--audio {
+    background: $type-audio-bg;
+    color: $type-audio;
+    border: 1px solid rgba($type-audio, 0.25);
+  }
+
+  &--pdf {
+    background: $type-pdf-bg;
+    color: $type-pdf;
+    border: 1px solid rgba($type-pdf, 0.25);
+  }
+
+  &--primary {
+    background: $primary-light;
+    color: #818cf8;
+    border: 1px solid rgba($primary, 0.3);
+  }
+
+  &--success {
+    background: $success-bg;
+    color: $success;
+    border: 1px solid rgba($success, 0.3);
+  }
+
+  &--score {
+    background: rgba(99, 102, 241, 0.2);
+    color: #a5b4fc;
+    border: 1px solid rgba(99, 102, 241, 0.35);
+    font-weight: 700;
+  }
+}
+
+// ----------------------------------------------------
+// STAT CARDS
+// ----------------------------------------------------
+.stat-card {
+  @include card-base;
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: $border;
+    transition: background $transition-fast;
+  }
+
+  &--primary::before { background: $primary; }
+  &--image::before { background: $type-image; }
+  &--video::before { background: $type-video; }
+  &--audio::before { background: $type-audio; }
+  &--pdf::before { background: $type-pdf; }
+  &--accent::before { background: $accent; }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  &__label {
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: $text-secondary;
+  }
+
+  &__value {
+    font-size: 1.625rem;
+    font-weight: 700;
+    color: $text-main;
+    line-height: 1.1;
+  }
+
+  &__subtext {
+    font-size: 0.75rem;
+    color: $text-muted;
+  }
+
+  &__icon {
+    width: 44px;
+    height: 44px;
+    border-radius: $radius-md;
+    background: $bg-input;
+    border: 1px solid $border;
+    @include flex-center;
+    color: $text-secondary;
+    flex-shrink: 0;
+  }
+
+  &:hover {
+    border-color: $border-light;
+    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+  }
+}
+
+// ----------------------------------------------------
+// MODAL
+// ----------------------------------------------------
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  @include flex-center;
+  z-index: 1000;
+  padding: 1.25rem;
+  animation: modalFadeIn $transition-fast;
+}
+
+.modal {
+  background: $bg-card;
+  border: 1px solid $border;
+  border-radius: $radius-lg;
+  box-shadow: $shadow-lg;
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modalScaleIn $transition-fast;
+
+  &--sm { max-width: 440px; }
+  &--md { max-width: 600px; }
+  &--lg { max-width: 840px; }
+  &--xl { max-width: 1050px; }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.25rem 1.5rem;
+    border-bottom: 1px solid $border;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $text-main;
+  }
+
+  &__close {
+    background: transparent;
+    border: none;
+    color: $text-muted;
+    cursor: pointer;
+    padding: 0.35rem;
+    border-radius: $radius-sm;
+    @include flex-center;
+    transition: all $transition-fast;
+
+    &:hover {
+      background: $bg-elevated;
+      color: $text-main;
+    }
+  }
+
+  &__body {
+    padding: 1.5rem;
+    overflow-y: auto;
+    @include custom-scrollbar;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    padding: 1.25rem 1.5rem;
+    border-top: 1px solid $border;
+    background: rgba($bg-main, 0.4);
+  }
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes modalScaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+// ----------------------------------------------------
+// FILE PREVIEW MODAL
+// ----------------------------------------------------
+.file-preview-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 1.5rem;
+
+  @include tablet {
+    grid-template-columns: 1fr;
+  }
+
+  &__stage {
+    background: #000;
+    border: 1px solid $border;
+    border-radius: $radius-md;
+    @include flex-center;
+    min-height: 380px;
+    max-height: 520px;
+    overflow: hidden;
+    position: relative;
+
+    img {
+      max-width: 100%;
+      max-height: 500px;
+      object-fit: contain;
+    }
+
+    video {
+      width: 100%;
+      max-height: 500px;
+      outline: none;
+    }
+
+    .audio-player-wrapper {
+      width: 100%;
+      padding: 2.5rem 1.5rem;
+      @include flex-center;
+      flex-direction: column;
+      gap: 1.5rem;
+      background: radial-gradient(circle at center, rgba($type-audio, 0.15) 0%, rgba(0, 0, 0, 0.8) 100%);
+
+      .audio-disc {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, $type-audio 0%, $secondary 100%);
+        @include flex-center;
+        color: #fff;
+        font-size: 2.5rem;
+        box-shadow: 0 0 25px rgba($type-audio, 0.4);
+        animation: spin 10s linear infinite;
+      }
+
+      audio {
+        width: 100%;
+        max-width: 400px;
+      }
+    }
+
+    .pdf-viewer-wrapper {
+      width: 100%;
+      height: 500px;
+
+      iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+      }
+    }
+  }
+
+  &__details {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+
+    .meta-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+
+      .meta-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid rgba($border, 0.6);
+        font-size: 0.8125rem;
+
+        dt {
+          color: $text-secondary;
+          font-weight: 500;
+        }
+
+        dd {
+          color: $text-main;
+          font-weight: 600;
+          word-break: break-all;
+          text-align: right;
+        }
+      }
+    }
+
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+    }
+
+    .action-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-top: auto;
+    }
+  }
+}
+
+// ----------------------------------------------------
+// TOASTS
+// ----------------------------------------------------
+.toast-container {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 2000;
+}
+
+.toast {
+  min-width: 280px;
+  max-width: 400px;
+  padding: 0.875rem 1.25rem;
+  border-radius: $radius-md;
+  box-shadow: $shadow-lg;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  animation: toastSlideIn $transition-normal;
+
+  &--success {
+    background: #064e3b;
+    border: 1px solid rgba($success, 0.4);
+    color: #6ee7b7;
+  }
+
+  &--error {
+    background: #7f1d1d;
+    border: 1px solid rgba($danger, 0.4);
+    color: #fca5a5;
+  }
+
+  &--info {
+    background: #1e1b4b;
+    border: 1px solid rgba($primary, 0.4);
+    color: #c7d2fe;
+  }
+
+  &--warning {
+    background: #78350f;
+    border: 1px solid rgba($warning, 0.4);
+    color: #fde68a;
+  }
+}
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+// ----------------------------------------------------
+// SKELETONS
+// ----------------------------------------------------
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    $bg-elevated 25%,
+    rgba($border-light, 0.6) 50%,
+    $bg-elevated 75%
+  );
+  background-size: 200% 100%;
+  animation: skeletonPulse 1.5s infinite;
+  border-radius: $radius-sm;
+
+  &--card {
+    height: 240px;
+    border-radius: $radius-md;
+  }
+
+  &--stat {
+    height: 90px;
+    border-radius: $radius-md;
+  }
+
+  &--row {
+    height: 52px;
+    border-radius: $radius-sm;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 1.25rem;
+}
+
+.skeleton-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.skeleton-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@keyframes skeletonPulse {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+// ----------------------------------------------------
+// EMPTY STATE
+// ----------------------------------------------------
+.empty-state {
+  text-align: center;
+  padding: 3.5rem 1.5rem;
+  @include flex-center;
+  flex-direction: column;
+  border: 1px dashed $border;
+  border-radius: $radius-lg;
+  background: rgba($bg-card, 0.4);
+
+  &__icon {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: $bg-input;
+    border: 1px solid $border;
+    @include flex-center;
+    color: $text-muted;
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+  }
+
+  &__title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: $text-main;
+    margin-bottom: 0.35rem;
+  }
+
+  &__message {
+    color: $text-secondary;
+    font-size: 0.875rem;
+    max-width: 380px;
+    margin-bottom: 1.25rem;
+    line-height: 1.5;
+  }
+
+  &__action {
+    display: flex;
+    gap: 0.75rem;
+  }
+}
+
+// ----------------------------------------------------
+// ALERTS
+// ----------------------------------------------------
+.alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  border-radius: $radius-sm;
+  font-size: 0.875rem;
+  margin-bottom: 1.25rem;
+
+  &--error {
+    background: $danger-bg;
+    border: 1px solid rgba($danger, 0.4);
+    color: #fca5a5;
+  }
+
+  &--success {
+    background: $success-bg;
+    border: 1px solid rgba($success, 0.4);
+    color: #86efac;
+  }
+
+  &--info {
+    background: $primary-light;
+    border: 1px solid rgba($primary, 0.4);
+    color: #c7d2fe;
+  }
+}
+
+// ----------------------------------------------------
+// SPINNER
+// ----------------------------------------------------
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #fff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

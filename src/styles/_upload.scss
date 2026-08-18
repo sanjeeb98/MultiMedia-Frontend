@@ -1,0 +1,300 @@
+@use 'variables' as *;
+@use 'mixins' as *;
+
+.upload-page {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  max-width: 900px;
+  margin: 0 auto;
+
+  &__header {
+    h1 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: $text-main;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: $text-secondary;
+      font-size: 0.875rem;
+    }
+  }
+
+  &__card {
+    @include card-base;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.75rem;
+
+    @include mobile {
+      padding: 1.25rem;
+    }
+  }
+
+  &__dropzone {
+    border: 2px dashed $border;
+    border-radius: $radius-lg;
+    padding: 3rem 1.5rem;
+    @include flex-center;
+    flex-direction: column;
+    gap: 1rem;
+    cursor: pointer;
+    background: rgba($bg-input, 0.5);
+    transition: all $transition-normal;
+    position: relative;
+
+    &:hover,
+    &--active {
+      border-color: $primary;
+      background: rgba($primary, 0.06);
+      transform: scale(1.005);
+
+      .upload-icon-pulse {
+        transform: scale(1.1);
+        color: $primary;
+      }
+    }
+
+    input[type='file'] {
+      display: none;
+    }
+
+    .upload-icon-pulse {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: $bg-elevated;
+      border: 1px solid $border;
+      @include flex-center;
+      color: $primary;
+      transition: all $transition-fast;
+    }
+
+    .dropzone-prompt {
+      text-align: center;
+
+      h3 {
+        font-size: 1.125rem;
+        font-weight: 600;
+        color: $text-main;
+        margin-bottom: 0.25rem;
+      }
+
+      p {
+        font-size: 0.8125rem;
+        color: $text-muted;
+      }
+    }
+
+    .supported-formats {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  }
+
+  &__staged-file {
+    @include card-base;
+    background: $bg-input;
+    border: 1px solid $border;
+    padding: 1.25rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: center;
+
+    @include mobile {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .staged-preview {
+      width: 90px;
+      height: 90px;
+      border-radius: $radius-sm;
+      background: #000;
+      @include flex-center;
+      overflow: hidden;
+      flex-shrink: 0;
+
+      img,
+      video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .preview-type-icon {
+        font-size: 2rem;
+      }
+    }
+
+    .staged-details {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+
+      .staged-name {
+        font-size: 0.9375rem;
+        font-weight: 600;
+        color: $text-main;
+        word-break: break-all;
+      }
+
+      .staged-meta {
+        font-size: 0.75rem;
+        color: $text-secondary;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+    }
+
+    .staged-remove {
+      flex-shrink: 0;
+    }
+  }
+
+  &__tag-editor {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+
+    .tags-input-box {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.75rem;
+      background: $bg-input;
+      border: 1px solid $border;
+      border-radius: $radius-sm;
+      min-height: 44px;
+
+      &:focus-within {
+        border-color: $primary;
+        box-shadow: 0 0 0 3px $primary-light;
+      }
+
+      .tag-item {
+        background: $primary-light;
+        color: #818cf8;
+        border: 1px solid rgba($primary, 0.3);
+        padding: 0.2rem 0.5rem;
+        border-radius: $radius-pill;
+        font-size: 0.75rem;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+
+        button {
+          background: none;
+          border: none;
+          color: #a5b4fc;
+          cursor: pointer;
+          padding: 0;
+          font-size: 0.875rem;
+          line-height: 1;
+
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
+
+      input {
+        flex: 1;
+        min-width: 140px;
+        background: transparent;
+        border: none;
+        color: $text-main;
+        font-family: inherit;
+        font-size: 0.875rem;
+        padding: 0.25rem 0;
+
+        &:focus {
+          outline: none;
+        }
+
+        &::placeholder {
+          color: $text-muted;
+        }
+      }
+    }
+
+    .tag-suggestions {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      flex-wrap: wrap;
+
+      span {
+        font-size: 0.6875rem;
+        color: $text-muted;
+      }
+
+      button {
+        background: $bg-elevated;
+        border: 1px solid rgba($border, 0.5);
+        color: $text-secondary;
+        font-size: 0.6875rem;
+        padding: 0.15rem 0.45rem;
+        border-radius: $radius-pill;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+          background: $border;
+          color: $text-main;
+        }
+      }
+    }
+  }
+
+  &__progress-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+
+    .progress-bar {
+      height: 6px;
+      width: 100%;
+      background: $bg-input;
+      border-radius: $radius-pill;
+      overflow: hidden;
+
+      .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, $primary 0%, $secondary 100%);
+        border-radius: $radius-pill;
+        transition: width $transition-fast;
+        animation: progressShimmer 1.5s infinite;
+      }
+    }
+
+    .progress-label {
+      font-size: 0.75rem;
+      color: $text-muted;
+      text-align: right;
+    }
+  }
+
+  &__footer-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.75rem;
+  }
+}
+
+@keyframes progressShimmer {
+  0% { opacity: 0.8; }
+  50% { opacity: 1; }
+  100% { opacity: 0.8; }
+}
